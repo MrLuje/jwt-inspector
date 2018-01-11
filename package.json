@@ -5,8 +5,8 @@
   "author": "Stormpath, 2016",
   "license": "LicenseRef-LICENSE",
   "scripts": {
-    "build": "rm -rf ./build/ && mkdir ./build/ && cp -r ./src/* ./build && rm -rf ./build/js/ ./build/css/ && webpack && npm run pack",
-    "dev": "rm -rf ./build/ && mkdir ./build/ && cp -r ./src/* ./build && rm -rf ./build/js/ ./build/css/ && webpack --watch",
+    "build": "rimraf ./build/ && mkdir build && cp -r ./src/* ./build && rimraf ./build/js/ ./build/css/ && webpack && npm run pack",
+    "dev": "rimraf ./build/ && mkdir build && cp -r ./src/* ./build && rimraf ./build/js/ ./build/css/ && webpack --watch",
     "pack": "zip -r ./build/jwt-inspector.zip . -x *.git* *.DS_Store* .* webpack.config.js package.json README.md \"node_modules/*\" \"test/*\" \"src/*\""
   },
   "repository": {
@@ -42,6 +42,7 @@
     "less": "^2.6.1",
     "less-cli": "^1.0.0",
     "less-loader": "^2.2.3",
+    "rimraf": "2.6.2",
     "style-loader": "^0.13.1"
   }
 }
