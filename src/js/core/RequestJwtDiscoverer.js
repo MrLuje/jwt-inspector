@@ -31,6 +31,17 @@ export default class RequestJwtDiscoverer {
       request.request.headers.forEach((header) => {
         let value = header.value;
 
+        let processToken = (headerName, headerValue, lValue) => {
+          if (isJwt(lValue)) {
+            jwts.push({
+              type: 'request_header',
+              name: headerName,
+              value: lValue,
+              rawValue: headerValue
+            });
+          };
+        };
+
         switch (header.name.toLowerCase()) {
           case 'authorization':
             let [type, innerValue] = value.split(' ', 2);
@@ -42,18 +53,12 @@ export default class RequestJwtDiscoverer {
             break;
           case 'x-client':
             let xClient = JSON.parse(value);
-            value = xClient.Context;
-            break;
+            processToken("XClient-Context", header.value, xClient.Context);
+            processToken("XClient-Auth", header.value, xClient.Auth);
+            return;
         }
 
-        if (isJwt(value)) {
-          jwts.push({
-            type: 'request_header',
-            name: header.name,
-            value: value,
-            rawValue: header.value
-          });
-        }
+        processToken(header, value);
       });
 
       request.response.headers.forEach((header) => {
