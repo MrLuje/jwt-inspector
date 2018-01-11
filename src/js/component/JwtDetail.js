@@ -16,7 +16,7 @@ export default class JwtDetail extends React.Component {
 
     if (this.props.showRaw){
       additionalContent.push(
-        <ExpandableSection name="JWT" value={jwt.raw} copyable={true} />
+        <ExpandableSection name="JWT" value={jwt.raw} copyable={true} expanded={false} />
       );
     }
 
@@ -25,7 +25,7 @@ export default class JwtDetail extends React.Component {
         {additionalContent}
         <ExpandableSection name="Header" value={jwt.header} format="json" />
         <ExpandableSection name="Payload" value={jwt.body} format="json" />
-        <ExpandableSection name="Signature" value={jwt.signature} />
+        <ExpandableSection name="Signature" value={jwt.signature} expanded={false} />
       </div>
     );
   }

@@ -2,9 +2,13 @@ import React from 'react';
 import { setClipboardText, prettyPrintJson } from '../utils';
 
 export default class ExpandableSection extends React.Component {
-  state = {
-    expanded: true
-  };
+  constructor(props){
+    super(props);
+
+    this.state = {
+      expanded: (this.props.expanded === undefined || this.props.expanded)
+    };
+  }
 
   onHeaderClicked() {
     this.setState({
