@@ -17,7 +17,7 @@ export default class DevToolsPanelView extends React.Component {
     jwtRequestCount: 0,
     mostRecentTabId: null,
     currentTabUrl: null,
-    selectedTabId: 'debug'
+    selectedTabId: 'request'
   };
 
   constructor(...args) {
