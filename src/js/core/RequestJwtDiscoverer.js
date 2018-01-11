@@ -36,9 +36,13 @@ export default class RequestJwtDiscoverer {
             let [type, innerValue] = value.split(' ', 2);
             switch (type.toLowerCase()) {
               case 'bearer':
-                value = innerValue;
-                break;
+              value = innerValue;
+              break;
             }
+            break;
+          case 'x-client':
+            let xClient = JSON.parse(value);
+            value = xClient.Context;
             break;
         }
 

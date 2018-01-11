@@ -172,9 +172,12 @@ export function parseJwt(value, skipValidate) {
   let [header, body, signature] = value.split('.');
 
   try {
+    let processedBody = base64Decode(body).replace(/\\"/g, '"');
+    processedBody = processedBody.substring(1, processedBody.length-1);
+
     return {
       header: JSON.parse(base64Decode(header)),
-      body: JSON.parse(base64Decode(body)),
+      body: JSON.parse(processedBody),
       signature: signature,
       raw: value
     };
