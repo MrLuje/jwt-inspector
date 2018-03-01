@@ -5,8 +5,9 @@
   "author": "Stormpath, 2016",
   "license": "LicenseRef-LICENSE",
   "scripts": {
-    "build": "rimraf ./build/ && mkdir build && cp -r ./src/* ./build && rimraf ./build/js/ ./build/css/ && webpack && npm run pack",
-    "dev": "rimraf ./build/ && mkdir build && cp -r ./src/* ./build && rimraf ./build/js/ ./build/css/ && webpack --watch",
+    "build": "rimraf ./build/ && rimraf ./jwt-inspector/ && mkdir build && cp -r ./src/* ./build && rimraf ./build/js/ ./build/css/ && webpack && npm run preparepackage && npm run pack",
+    "dev": "rimraf ./build/ && rimraf ./jwt-inspector/ && mkdir build && cp -r ./src/* ./build && rimraf ./build/js/ ./build/css/ && webpack --watch",
+    "preparepackage": "mkdir jwt-inspector && ncp _locales jwt-inspector/_locales && ncp assets jwt-inspector/assets && ncp build jwt-inspector/build && ncp manifest.json jwt-inspector/manifest.json",
     "pack": "zip -r ./build/jwt-inspector.zip . -x *.git* *.DS_Store* .* webpack.config.js package.json README.md \"node_modules/*\" \"test/*\" \"src/*\""
   },
   "repository": {
@@ -24,25 +25,24 @@
     "babel-preset-react": "^6.3.13",
     "babel-preset-stage-0": "^6.3.13",
     "babel-runtime": "^6.3.19",
+    "css-loader": "0.23.1",
     "es6-promise": "^3.1.2",
+    "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "^0.8.5",
+    "image-webpack-loader": "^1.8.0",
     "json-loader": "^0.5.4",
+    "less": "^2.6.1",
+    "less-cli": "^1.0.0",
+    "less-loader": "^2.2.3",
+    "ncp": "^2.0.0",
     "njwt": "^0.3.0",
     "react": "^15.0.1",
     "react-contenteditable": "^1.1.0",
     "react-dom": "^15.0.1",
     "react-textarea-autosize": "^4.0.1",
+    "rimraf": "2.6.2",
+    "style-loader": "0.13.1",
     "webpack": "^1.12.13",
     "webpack-dev-middleware": "^1.5.1"
-  },
-  "devDependencies": {
-    "css-loader": "^0.23.1",
-    "extract-text-webpack-plugin": "^1.0.1",
-    "image-webpack-loader": "^1.8.0",
-    "less": "^2.6.1",
-    "less-cli": "^1.0.0",
-    "less-loader": "^2.2.3",
-    "rimraf": "2.6.2",
-    "style-loader": "^0.13.1"
   }
 }
