@@ -23,7 +23,7 @@ export default class JwtDetail extends React.Component {
     return (
       <div className="jwt">
         {additionalContent}
-        <ExpandableSection name="Header" value={jwt.header} format="json" />
+        <ExpandableSection name="Header" value={jwt.header} format="json" expanded={false} />
         <ExpandableSection name="Payload" value={jwt.body} format="json" />
         <ExpandableSection name="Signature" value={jwt.signature} expanded={false} />
       </div>
