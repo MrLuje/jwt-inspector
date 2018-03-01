@@ -28,19 +28,19 @@ export default class RequestJwtDiscoverer {
         }
       }
 
+      let processToken = (type, headerName, headerValue, lValue) => {
+        if (isJwt(lValue)) {
+          jwts.push({
+            type: type,
+            name: headerName,
+            value: lValue,
+            rawValue: headerValue
+          });
+        };
+      };
+
       request.request.headers.forEach((header) => {
         let value = header.value;
-
-        let processToken = (headerName, headerValue, lValue) => {
-          if (isJwt(lValue)) {
-            jwts.push({
-              type: 'request_header',
-              name: headerName,
-              value: lValue,
-              rawValue: headerValue
-            });
-          };
-        };
 
         switch (header.name.toLowerCase()) {
           case 'authorization':
@@ -53,8 +53,8 @@ export default class RequestJwtDiscoverer {
             break;
           case 'x-client':
             let xClient = JSON.parse(value);
-            processToken("XClient-Context", header.value, xClient.Context);
-            processToken("XClient-Auth", header.value, xClient.Auth);
+            processToken('request_header', "XClient-Context", header.value, xClient.Context);
+            processToken('request_header', "XClient-Auth", header.value, xClient.Auth);
             return;
         }
 
@@ -97,6 +97,12 @@ export default class RequestJwtDiscoverer {
                 }
               }
             }
+            break;
+            
+            case 'x-client':
+              let xClient = JSON.parse(value);
+              processToken('response_header', "XClient-Context", header.value, xClient.Context);
+              processToken('response_header', "XClient-Auth", header.value, xClient.Auth);
             break;
         }
 
